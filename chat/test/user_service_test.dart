@@ -1,9 +1,9 @@
 import 'package:chat/src/models/user.dart';
+import 'package:chat/src/services/user_service_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rethinkdb_dart/rethinkdb_dart.dart';
 
 import 'helper.dart';
-import 'user_service_impl.dart';
 
 void main() {
   Rethinkdb r = Rethinkdb();
