@@ -1,5 +1,5 @@
 import 'package:chat/src/models/user.dart';
-import 'package:chat/src/services/user_service_contact.dart';
+import 'package:chat/src/services/user/user_service_contact.dart';
 import 'package:rethinkdb_dart/rethinkdb_dart.dart';
 
 class UserService implements IUserService {
