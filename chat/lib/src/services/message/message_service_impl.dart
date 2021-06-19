@@ -2,18 +2,20 @@ import 'dart:async';
 
 import 'package:chat/src/models/user.dart';
 import 'package:chat/src/models/message.dart';
+import 'package:chat/src/services/encryption/encryption_contract.dart';
 import 'package:chat/src/services/message/message_service_contract.dart';
 import 'package:rethinkdb_dart/rethinkdb_dart.dart';
 
 class MessageService implements IMessageService {
   final Connection _connection;
   final Rethinkdb r;
+  final IEncrytion _encrytion;
 
   final _controller = StreamController<Message>.broadcast();
 
   StreamSubscription _changefeed;
 
-  MessageService(this.r, this._connection);
+  MessageService(this.r, this._connection, this._encrytion);
 
   @override
   disponse() {
@@ -29,6 +31,8 @@ class MessageService implements IMessageService {
 
   @override
   Future<bool> send(Message message) async {
+    var data = message.toJson();
+    data['contents'] = _encrytion.encrypt(message.container);
     Map record =
         await r.table('message').insert(message.toJson()).run(_connection);
     return record['inserted'] == 1;
@@ -58,6 +62,8 @@ class MessageService implements IMessageService {
   }
 
   Message _messageFromFeed(feedData) {
+    var data = feedData['new_val'];
+    data['contents'] = _encrytion.decrypt(data['contents']);
     return Message.fromJson(feedData['new_val']);
   }
 

@@ -12,7 +12,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    
+  
+  encrypt: ^4.1.0
   rethinkdb_dart: ^2.3.2+6
 
 
