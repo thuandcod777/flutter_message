@@ -19,7 +19,7 @@ class User {
         'username': username,
         'photo_url': photoUrl,
         'active': active,
-        'last_seen': lastseen,
+        'lastseen': lastseen,
       };
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -27,7 +27,7 @@ class User {
       username: json['username'],
       photoUrl: json['photo_url'],
       active: json['active'],
-      lastseen: json['last_seen'],
+      lastseen: json['lastseen'],
     );
 
     user._id = json['id'];
