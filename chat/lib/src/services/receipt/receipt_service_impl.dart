@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:chat/src/models/message.dart';
 import 'package:chat/src/models/user.dart';
 import 'package:chat/src/models/receipt.dart';
 import 'package:chat/src/services/receipt/receipt_service_contract.dart';
@@ -41,7 +40,7 @@ class ReceiptService implements IReceiptService {
     _changefeed = r
         .table('receipts')
         .filter({'recipient': user.id})
-        .changes({'inclide_initial': true})
+        .changes({'include_initial': true})
         .run(_connection)
         .asStream()
         .cast<Feed>()
