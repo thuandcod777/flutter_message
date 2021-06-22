@@ -43,8 +43,9 @@ void main() {
         lastseen: DateTime.now());
 
     await sut.connect(user);
+
     final users = await sut.online();
 
-    expect(users.length, 0);
+    expect(users.length, 1);
   });
 }

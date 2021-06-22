@@ -33,8 +33,7 @@ class MessageService implements IMessageService {
   Future<bool> send(Message message) async {
     var data = message.toJson();
     data['contents'] = _encrytion.encrypt(message.container);
-    Map record =
-        await r.table('message').insert(message.toJson()).run(_connection);
+    Map record = await r.table('message').insert(data).run(_connection);
     return record['inserted'] == 1;
   }
 
@@ -64,7 +63,7 @@ class MessageService implements IMessageService {
   Message _messageFromFeed(feedData) {
     var data = feedData['new_val'];
     data['contents'] = _encrytion.decrypt(data['contents']);
-    return Message.fromJson(feedData['new_val']);
+    return Message.fromJson(data);
   }
 
   _removeDeliverredMessage(Message message) {

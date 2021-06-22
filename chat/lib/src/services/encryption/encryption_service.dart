@@ -11,6 +11,11 @@ class EncryptionService implements IEncrytion {
   String decrypt(String encrytedText) {
     final key = Key.fromBase64(encrytedText);
     final encrypted = Encrypter(AES(key));
+
+    ///final encrypted = decryptEncrypted.fromBase64(encrytedText);
+
+    //final encrypted = decryptEncrypted.fromBase64(encrytedText);
+
     return _encrypter.decrypt(encrypted, iv: iV);
   }
 

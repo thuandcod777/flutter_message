@@ -17,15 +17,15 @@ main() {
         r'^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{4})$');
 
     final encrypted = sut.encrypt(text);
+
     expect(base64.hasMatch(encrypted), true);
   });
 
   test('it decrypts the encrypts text', () {
     final text = 'this is a message';
-
     final encrypted = sut.encrypt(text);
     final decrypted = sut.decrypt(encrypted);
 
-    expect(decrypted, true);
+    expect(decrypted, text);
   });
 }
