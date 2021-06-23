@@ -23,6 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  chat:
+    path: ./chat
+  sqflite: ^2.0.0+3
+  mockito: ^4.1.4
+
 
 
   # The following adds the Cupertino Icons font to your application.
