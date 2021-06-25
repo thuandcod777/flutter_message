@@ -31,15 +31,20 @@ void main() {
 
   test('returns list of chats', () async {
     final chat = Chat('123');
+
     when(mockDatasource.findAllChats()).thenAnswer((_) async => [chat]);
+
     final chats = await sut.getChats();
+
     expect(chats, isNotEmpty);
   });
 
   test('creates a new chat when receiving message for the first time',
       () async {
     when(mockDatasource.findChat(any)).thenAnswer((_) async => null);
+
     await sut.receivedMessage(message);
+
     verify(mockDatasource.addChat(any)).called(1);
   });
 
@@ -47,6 +52,7 @@ void main() {
     final chat = Chat('123');
 
     when(mockDatasource.findChat(any)).thenAnswer((_) async => chat);
+
     await sut.receivedMessage(message);
 
     verifyNever(mockDatasource.addChat(any));

@@ -29,30 +29,39 @@ void main() {
 
   test('initial messages return empty list', () async {
     when(mockDatasource.findMessages(any)).thenAnswer((_) async => []);
+
     expect(await sut.getMessages('123'), isEmpty);
   });
 
   test('return list of messages from local storage', () async {
     final chat = Chat('123');
+
     final localMessage =
         LocalMessage(chat.id, message, ReceiptStatus.deliverred);
+
     when(mockDatasource.findMessages(chat.id))
         .thenAnswer((_) async => [localMessage]);
+
     final messages = await sut.getMessages('123');
+
     expect(messages, isNotEmpty);
     expect(messages.first.chatId, '123');
   });
 
   test('creates a new chat when sending first message', () async {
     when(mockDatasource.findChat(any)).thenAnswer((_) async => null);
+
     await sut.sentMessage(message);
+
     verify(mockDatasource.addChat(any)).called(1);
   });
 
   test('add new sent message to the chat', () async {
     final chat = Chat('123');
+
     final localMessage =
         LocalMessage(chat.id, message, ReceiptStatus.deliverred);
+
     when(mockDatasource.findMessages(chat.id))
         .thenAnswer((_) async => [localMessage]);
 
@@ -83,6 +92,7 @@ void main() {
   test('create new chat when message received is not apart of this chat',
       () async {
     final chat = Chat('123');
+
     final localMessage =
         LocalMessage(chat.id, message, ReceiptStatus.deliverred);
 

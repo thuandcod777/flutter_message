@@ -27,6 +27,8 @@ dependencies:
     path: ./chat
   sqflite: ^2.0.0+3
   mockito: ^4.1.4
+  equatable: ^2.0.3
+  bloc: ^7.0.0
 
 
 
