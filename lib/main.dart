@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightTheme(context),
       darkTheme: darkTheme(context),
-      home: CompositionRoot.composeOnBoardingUi(),
+      home: CompositionRoot.composeHomeUi(),
     );
   }
 }

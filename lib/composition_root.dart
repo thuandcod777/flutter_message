@@ -2,8 +2,10 @@ import 'package:chat/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_message/services/image_uploader.dart';
+import 'package:flutter_message/states_management/home/home_cubit.dart';
 import 'package:flutter_message/states_management/onboarding/onboarding_cubit.dart';
 import 'package:flutter_message/states_management/onboarding/profile_image_cubit.dart';
+import 'package:flutter_message/ui/pages/home/home.dart';
 import 'package:flutter_message/ui/pages/onboarding/onboarding.dart';
 import 'package:rethinkdb_dart/rethinkdb_dart.dart';
 
@@ -19,7 +21,7 @@ class CompositionRoot {
   }
 
   static Widget composeOnBoardingUi() {
-    ImageUploader imageUploader = ImageUploader('http://localhost:3000/upload');
+    ImageUploader imageUploader = ImageUploader('http://10.0.2.2:3000/upload');
 
     OnboardingCubit onboardingCubit =
         OnboardingCubit(_userService, imageUploader);
@@ -29,5 +31,14 @@ class CompositionRoot {
       BlocProvider(create: (BuildContext context) => onboardingCubit),
       BlocProvider(create: (BuildContext context) => imageCubit),
     ], child: OnBoarding());
+  }
+
+  static Widget composeHomeUi() {
+    HomeCubit homeCubit = HomeCubit(_userService);
+
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (BuildContext context) => homeCubit)],
+      child: Home(),
+    );
   }
 }

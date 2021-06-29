@@ -5,11 +5,21 @@ import 'package:google_fonts/google_fonts.dart';
 final appBarTheme = AppBarTheme(
     centerTitle: false, elevation: 0, backgroundColor: Colors.white);
 
+final tabBarTheme = TabBarTheme(
+    indicatorSize: TabBarIndicatorSize.label,
+    unselectedLabelColor: Colors.black54,
+    indicator: BoxDecoration(
+        borderRadius: BorderRadius.circular(50.0), color: kPrimary));
+
+final dividerTheme = DividerThemeData().copyWith(thickness: 1.1, indent: 75.0);
+
 ThemeData lightTheme(BuildContext context) => ThemeData.light().copyWith(
     primaryColor: kPrimary,
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: appBarTheme,
+    tabBarTheme: tabBarTheme,
     iconTheme: IconThemeData(color: kIconLight),
+    dividerTheme: dividerTheme.copyWith(color: kBubbleLight),
     textTheme: GoogleFonts.comfortaaTextTheme(Theme.of(context).textTheme)
         .apply(displayColor: Colors.black),
     visualDensity: VisualDensity.adaptivePlatformDensity);

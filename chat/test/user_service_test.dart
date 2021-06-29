@@ -22,7 +22,7 @@ void main() {
 
   test('create a new user document in database', () async {
     final user = User(
-      username: 'test',
+      username: 'test3',
       photoUrl: 'url',
       active: true,
       lastseen: DateTime.now(),
