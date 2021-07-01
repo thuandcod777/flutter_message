@@ -31,7 +31,7 @@ void main() {
     final message = Message(
         from: '123',
         to: '456',
-        container: 'test message',
+        contents: 'test message',
         timestamp: DateTime.now());
 
     when(messageService.send(message)).thenAnswer((_) async => true);
@@ -44,7 +44,7 @@ void main() {
     final message = Message(
         from: '123',
         to: '456',
-        container: 'test message',
+        contents: 'test message',
         timestamp: DateTime.now());
 
     when(messageService.messages(activeUser: anyNamed('activeUser')))

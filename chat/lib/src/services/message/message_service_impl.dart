@@ -15,7 +15,8 @@ class MessageService implements IMessageService {
 
   StreamSubscription _changefeed;
 
-  MessageService(this.r, this._connection, this._encrytion);
+  MessageService(this.r, this._connection, {IEncrytion encrytion})
+      : _encrytion = encrytion;
 
   @override
   disponse() {
@@ -32,7 +33,8 @@ class MessageService implements IMessageService {
   @override
   Future<bool> send(Message message) async {
     var data = message.toJson();
-    data['contents'] = _encrytion.encrypt(message.container);
+    if (_encrytion != null)
+      data['contents'] = _encrytion.encrypt(message.contents);
     Map record = await r.table('message').insert(data).run(_connection);
     return record['inserted'] == 1;
   }
@@ -62,7 +64,8 @@ class MessageService implements IMessageService {
 
   Message _messageFromFeed(feedData) {
     var data = feedData['new_val'];
-    data['contents'] = _encrytion.decrypt(data['contents']);
+    if (_encrytion != null)
+      data['contents'] = _encrytion.decrypt(data['contents']);
     return Message.fromJson(data);
   }
 

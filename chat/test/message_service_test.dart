@@ -14,10 +14,10 @@ void main() {
   MessageService sut;
 
   setUp(() async {
-    connection = await r.connect(host: '127.0.0.1', port: 8080);
+    connection = await r.connect(host: '127.0.0.1', port: 28015);
     final encryption = EncryptionService(Encrypter(AES(Key.fromLength(32))));
     await createDb(r, connection);
-    sut = MessageService(r, connection, encryption);
+    sut = MessageService(r, connection);
   });
 
   tearDown(() async {
@@ -36,7 +36,7 @@ void main() {
         from: user.id,
         to: '3456',
         timestamp: DateTime.now(),
-        container: 'this is a message');
+        contents: 'this is a message');
 
     final res = await sut.send(message);
     expect(res, true);
@@ -47,20 +47,20 @@ void main() {
     sut.messages(activeUser: user2).listen(expectAsync1((message) {
           expect(message.to, user2.id);
           expect(message.id, isNotEmpty);
-          expect(message.container, contents);
+          expect(message.contents, contents);
         }, count: 2));
 
     Message message = Message(
         from: user.id,
         to: user2.id,
         timestamp: DateTime.now(),
-        container: contents);
+        contents: contents);
 
     Message secondMessage = Message(
         from: user.id,
         to: user2.id,
         timestamp: DateTime.now(),
-        container: contents);
+        contents: contents);
 
     await sut.send(message);
     await sut.send(secondMessage);
@@ -71,12 +71,12 @@ void main() {
         from: user.id,
         to: user2.id,
         timestamp: DateTime.now(),
-        container: 'this this is a message');
+        contents: 'this this is a message');
     Message secondMessage = Message(
         from: user.id,
         to: user2.id,
         timestamp: DateTime.now(),
-        container: 'this this is a message');
+        contents: 'this this is a message');
 
     await sut.send(message);
     await sut.send(secondMessage).whenComplete(

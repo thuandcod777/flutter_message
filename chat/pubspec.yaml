@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   
-  encrypt: ^4.1.0
+  encrypt: ^3.3.1
   crypto: ^2.0.6
   rethinkdb_dart: ^2.3.2+6
 

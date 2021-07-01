@@ -33,8 +33,10 @@ dependencies:
   shared_preferences: ^2.0.6
   rethinkdb_dart: ^2.3.2+6
   http: ^0.12.2
+  intl: ^0.17.0
   image_picker: ^0.6.7+22
   provider: ^5.0.0
+  path: ^1.8.0
   flutter_bloc: ^7.0.1
 
 

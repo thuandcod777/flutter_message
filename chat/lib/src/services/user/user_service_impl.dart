@@ -26,6 +26,7 @@ class UserService implements IUserService {
       'active': false,
       'lastseen': DateTime.now()
     }).run(_connection);
+
     _connection.close();
   }
 
@@ -35,5 +36,11 @@ class UserService implements IUserService {
         await r.table('users').filter({'active': true}).run(_connection);
     final userList = await users.toList();
     return userList.map((item) => User.fromJson(item)).toList();
+  }
+
+  @override
+  Future<User> fetch(String id) async {
+    final user = await r.table('users').get(id).run(_connection);
+    return User.fromJson(user);
   }
 }

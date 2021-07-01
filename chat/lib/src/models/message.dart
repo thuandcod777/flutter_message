@@ -3,23 +3,23 @@ class Message {
   final String from;
   final String to;
   final DateTime timestamp;
-  final String container;
+  final String contents;
   String _id;
 
-  Message({this.from, this.to, this.timestamp, this.container});
+  Message({this.from, this.to, this.timestamp, this.contents});
 
   toJson() => {
         'from': this.from,
         'to': this.to,
         'timestamp': this.timestamp,
-        'container': this.container,
+        'contents': this.contents,
       };
 
   factory Message.fromJson(Map<String, dynamic> json) {
     var message = Message(
         from: json['from'],
         to: json['to'],
-        container: json['container'],
+        contents: json['contents'],
         timestamp: json['timestamp']);
 
     message._id = json['id'];
